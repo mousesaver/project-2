@@ -6,10 +6,13 @@ const cookieParser = require('cookie-parser')
 const db = require('./models')
 const crypto = require('crypto-js')
 const axios = require('axios')
+const myKey = process.env.API_KEY;
+
 
 // config express app/middlewares
 const app = express()
 const PORT = process.env.PORT || 3000
+app.use(express.static('static'));
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)
 app.use(express.urlencoded({extended: false}))
@@ -30,20 +33,47 @@ app.use(async (req, res, next) => {
     // move on to the next route or middleware in the chain
     next()
 })
-
+// Generate home page with 10 preselected movies from 2022
+const popularMovieId = ["tt1745960", "tt9419884", "tt8041270", "tt1877830", "tt5113044", "tt10648342", "tt12412888", "tt3704428", "tt1464335", "tt10954984"]
+async function extractMovie(arr,id) {
+    try {
+        const url = `http://www.omdbapi.com/?apikey=${myKey}&i=${id}`
+        const response = await axios.get(url)
+        arr.push(response.data)   
+    } catch(err) {
+        console.log(err)
+    }
+}
+let preselectedMovies = []
+async function extractMovie2() {
+    for (let i = 0; i < popularMovieId.length; i++) {
+        await extractMovie(preselectedMovies,popularMovieId[i])
+    }
+    app.get('/', (req, res) =>{
+        // console.log('incoming cookie 🍪', req.cookies)
+        // console.log(res.locals.myData)
+        res.render("home", {
+            movies: preselectedMovies
+        })
+    })
+}
+extractMovie2()
 
 // route definition
 app.get('/', (req, res) =>{
     // console.log('incoming cookie 🍪', req.cookies)
     // console.log(res.locals.myData)
-    console.log('The currently logged user is ', res.locals.user)
-    res.render("home")
+    res.render("home", {
+        movies: preselectedMovies
+    })
 })
 
 // controllers
 app.use('/users', require('./controllers/users'))
+app.use('/movies', require('./controllers/movies'))
 
 // listen to a port
 app.listen(PORT, () => {
     console.log(`Conneted to port ${PORT}`)
 })
+

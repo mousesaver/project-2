@@ -1,1 +1,18 @@
-<h2> Welcome Home</h2>
+<h2> Popukar Movies in 2022</h2>
+<form method="GET" action="/results">
+    <label for="search-input">Movie Title:</label>
+    <input id="search-input" type="text" placeholder="enter movie title..." name="s" />
+    <button type="submit">Search</button>
+
+</form>
+<ol>
+<% movies.forEach((movie) => { %>
+    <li>
+        <div>
+            <h3><a href= <%= `/movies/${movie.imdbID}` %>><%= movie.Title %></a></h3>
+            <p>Year: <%=movie.Year %></p>
+            <p>imdbID: <%=movie.imdbID %></p>
+        </div>
+    </li>
+<%}) %>
+</ol>
