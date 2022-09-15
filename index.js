@@ -68,6 +68,7 @@ app.get('/', (req, res) =>{
     })
 })
 
+
 // controllers
 app.use('/users', require('./controllers/users'))
 app.use('/movies', require('./controllers/movies'))

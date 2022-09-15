@@ -1,10 +1,4 @@
-<h2> Popular Movies in 2022</h2>
-<form method="GET" action="/movies">
-    <label for="search-input">Movie Title:</label>
-    <input id="search-input" type="text" placeholder="enter movie title..." name="s" />
-    <button type="submit">Search</button>
-
-</form>
+<h2>Results for <%= input %></h2>
 <ol>
 <% movies.forEach((movie) => { %>
     <li>
