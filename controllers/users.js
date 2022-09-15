@@ -3,6 +3,8 @@ const router  = express.Router()
 const db = require('../models')
 const crypto = require('crypto-js')
 const bcrypt = require('bcrypt')
+const axios = require('axios')
+const myKey = process.env.API_KEY;
 // GET /users/new -- render a form to create a new user
 router.get('/new', (req, res) => {
     
@@ -89,5 +91,56 @@ router.get('/profile', (req, res) => {
         })
     }
 })
-
+async function extractMovie(id) {
+    try {
+        const url = `http://www.omdbapi.com/?apikey=${myKey}&i=${id}`
+        const response = await axios.get(url)
+        return response.data   
+    } catch(err) {
+        console.log(err)
+    }
+}
+router.post('/watched', async (req, res) => {
+    if (!res.locals.user) {
+        res.redirect('/users/login?message=Please log in to proceed')
+    } else {
+        const specificMovie = await extractMovie(req.body.movieId)
+        const [movie, created] = await db.watchedmovie.findOrCreate({
+            where : {
+                imdbId : req.body.movieId
+            },
+            defaults: {
+                name: specificMovie.Title,
+                genre: specificMovie.Genre,
+                poster: specificMovie.Poster,
+                director: specificMovie.Director
+            }
+        })
+        if (created) {
+            res.locals.user.addWatchedmovie(movie)
+        }
+        res.redirect(`/movies/${movie.imdbId}`)
+    }
+})
+router.post('/watched/undo', (req, res) => {
+    if (!res.locals.user) {
+        res.redirect('/users/login?message=Please log in to proceed')
+    } else {
+        await db.watchedmovie.destroy({
+            where : {
+                imdbId : req.body.movieId
+            }
+        })
+        if (created) {
+            res.locals.user.addWatchedmovie(movie)
+        }
+        res.redirect(`/movies/${movie.imdbId}`)
+    }
+})
+router.post('/watchlist', (req, res) => {
+    res.send('Add to watchlist');
+})
+router.post('/watchlist/undo', (req, res) => {
+    res.send('Add to watchlist undo');
+})
 module.exports = router;

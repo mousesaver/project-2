@@ -8,9 +8,8 @@ router.get('/:movie_id', (req, res) => {
     const url = `http://www.omdbapi.com/?apikey=${myKey}&i=${req.params.movie_id}`
     axios.get(url)
     .then(resposne => {
-        console.log(resposne.data)
         res.render('movies/detail', {
-            movies: resposne.data
+            movie: resposne.data
         })
     })
     .catch(console.warn)
