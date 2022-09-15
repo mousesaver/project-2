@@ -122,19 +122,19 @@ router.post('/watched', async (req, res) => {
         res.redirect(`/movies/${movie.imdbId}`)
     }
 })
-router.post('/watched/undo', (req, res) => {
+router.post('/watched/undo', async (req, res) => {
     if (!res.locals.user) {
         res.redirect('/users/login?message=Please log in to proceed')
     } else {
-        await db.watchedmovie.destroy({
+        const movie = await db.watchedmovie.findOne({
             where : {
                 imdbId : req.body.movieId
             }
         })
-        if (created) {
-            res.locals.user.addWatchedmovie(movie)
+        if (movie) {
+            res.locals.user.removeWatchedmovie(movie)
         }
-        res.redirect(`/movies/${movie.imdbId}`)
+        res.redirect(`/movies/${req.body.movieId}`)
     }
 })
 router.post('/watchlist', (req, res) => {
