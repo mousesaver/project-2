@@ -138,8 +138,27 @@ router.post('/watched/undo', async (req, res) => {
     }
 })
 
-router.post('/watchlist', (req, res) => {
-    res.send('Add to watchlist');
+router.post('/watchlist', async (req, res) => {
+    if (!res.locals.user) {
+        res.redirect('/users/login?message=Please log in to proceed')
+    } else {
+        const specificMovie = await extractMovie(req.body.movieId)
+        const [movie, created] = await db.watchlist.findOrCreate({
+            where : {
+                imdbId : req.body.movieId
+            },
+            defaults: {
+                name: specificMovie.Title,
+                genre: specificMovie.Genre,
+                poster: specificMovie.Poster,
+                director: specificMovie.Director
+            }
+        })
+        if (created) {
+            res.locals.user.addWatchlist(movie)
+        }
+        res.redirect(`/movies/${movie.imdbId}`)
+    }
 })
 router.post('/watchlist/undo', (req, res) => {
     res.send('Add to watchlist undo');
