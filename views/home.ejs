@@ -1,7 +1,7 @@
 <h2> Popular Movies in 2022</h2>
 <form method="GET" action="/movies">
     <label for="search-input">Movie Title:</label>
-    <input id="search-input" type="text" placeholder="enter movie title..." name="s" />
+    <input id="search-input" type="text" placeholder="enter movie title..." name="s" required/>
     <button type="submit">Search</button>
 
 </form>
@@ -9,10 +9,27 @@
 <% movies.forEach((movie) => { %>
     <li>
         <div>
-            <h3><a href= <%= `/movies/${movie.imdbID}` %>><%= movie.Title %></a></h3>
-            <p>Year: <%=movie.Year %></p>
-            <p>imdbID: <%=movie.imdbID %></p>
+            <h3><a href="/movies/<%= movie.imdbId %>"><%= movie.Title %></a></h3>
+            <a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.Poster %>' height='150'></a>
         </div>
     </li>
 <%}) %>
 </ol>
+<% if (user) { %>
+    <p>Here are the movies you have watched:</p>
+    <ul>
+        <% user.watchedmovies.forEach((movie) => { %>
+            <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
+                <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
+            </li>
+        <% }) %>
+    </ul>
+    <p>Here are the movies on your watchlist:</p>
+    <ul>
+        <% user.watchlists.forEach((movie) => { %>
+            <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
+                <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
+            </li>
+        <% }) %>
+    </ul>
+<% } %>

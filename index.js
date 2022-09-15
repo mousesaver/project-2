@@ -60,11 +60,19 @@ async function extractMovie2() {
 extractMovie2()
 
 // route definition
-app.get('/', (req, res) =>{
-    // console.log('incoming cookie 🍪', req.cookies)
-    // console.log(res.locals.myData)
+app.get('/', async (req, res) =>{
+    let user = null
+    if (res.locals.user) {
+        user = await db.user.findOne({
+            where: {
+                id : res.locals.user.id
+            },
+            include: [db.watchedmovie, db.watchlist]
+        })
+    }
     res.render("home", {
-        movies: preselectedMovies
+        movies: preselectedMovies,
+        user: user 
     })
 })
 
