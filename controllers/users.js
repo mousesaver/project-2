@@ -81,13 +81,19 @@ router.get('/logout', (req, res) => {
     res.clearCookie('userId')
     res.redirect('/')
 })
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
     // if the user is not logged ... we need to redirect to the login form
     if (!res.locals.user) {
         res.redirect('/users/login?message=You must authenticate before you are authorized to view this resource.')
     } else {
+        const user = await db.user.findOne({
+            where: {
+                id : res.locals.user.id
+            },
+            include: [db.watchedmovie, db.watchlist]
+        })
         res.render('users/profile', {
-            user: res.locals.user
+            user: user
         })
     }
 })
