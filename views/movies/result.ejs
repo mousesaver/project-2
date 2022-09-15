@@ -1,12 +1,11 @@
-<h2>Results for <%= input %></h2>
+<h2>Results for "<%= input %>"</h2>
 <ol>
 <% movies.forEach((movie) => { %>
     <li>
-        <div>
-            <h3><a href= <%= `/movies/${movie.imdbID}` %>><%= movie.Title %></a></h3>
-            <p>Year: <%=movie.Year %></p>
-            <p>imdbID: <%=movie.imdbID %></p>
-        </div>
+        <div class="col-2">
+            <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none"><p><%= movie.Title %> (<%= movie.Year %>)<p></a>
+            <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="200" width="auto" ></a>
+          </div>
     </li>
 <%}) %>
 </ol>

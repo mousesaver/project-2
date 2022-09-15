@@ -1,17 +1,36 @@
 <h2>Hello <%= user.name %>! </h2>
-<p>Here are the movies you have watched:</p>
-<ul>
-    <% user.watchedmovies.forEach((movie) => { %>
-        <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
-            <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
-        </li>
-    <% }) %>
-</ul>
-<p>Here are the movies on your watchlist:</p>
-<ul>
-    <% user.watchlists.forEach((movie) => { %>
-        <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
-            <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
-        </li>
-    <% }) %>
-</ul>
+    <div class="container text-center">
+        <h3>Watched Movies:</h3>
+    <div class="row">
+        <% user.watchedmovies.forEach((movie) => { %>
+      <div class="col-2">
+        <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
+        <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
+      </div>
+      <% }) %>
+    </div>
+    </div>
+
+        <div class="container text-center">
+            <h3><%= user.name %>'s Watchlists:</h3>
+        <div class="row">
+            <% user.watchlists.forEach((movie) => { %>
+          <div class="col-2">
+            <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
+            <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
+          </div>
+          <% }) %>
+        </div>
+        <% if (prediction) { %>
+        <div class="container text-center">
+            <h3>Movies You May Like :</h3>
+        <div class="row">
+            <% prediction.forEach((movie) => { %>
+          <div class="col-2">
+            <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="200" width="auto" ></a>
+            <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none"><p><%= movie.Title %><p></a>
+          </div>
+          <% }) %>
+        </div>
+        <% } %>
+

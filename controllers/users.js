@@ -81,6 +81,15 @@ router.get('/logout', (req, res) => {
     res.clearCookie('userId')
     res.redirect('/')
 })
+async function extractMoviebyByTitle(name) {
+    try {
+        const url = `http://www.omdbapi.com/?apikey=${myKey}&s=${name}`
+        const response = await axios.get(url)
+        return response.data   
+    } catch(err) {
+        console.log(err)
+    }
+}
 router.get('/profile', async (req, res) => {
     // if the user is not logged ... we need to redirect to the login form
     if (!res.locals.user) {
@@ -92,8 +101,11 @@ router.get('/profile', async (req, res) => {
             },
             include: [db.watchedmovie, db.watchlist]
         })
+        const keyWord = user.watchedmovies[0].name.split(' ')[0]
+        const prediction = await extractMoviebyByTitle(keyWord)
         res.render('users/profile', {
-            user: user
+            user: user,
+            prediction: prediction.Search
         })
     }
 })
