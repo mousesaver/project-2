@@ -1,30 +1,47 @@
+<div class="container">
+<div class="row justify-content-start">
+    <div class="col-4">
+        <img src = <%= movie.Poster %> height="400">
+    </div>
+    <div class="col-8">
+        <p>Title: <%= movie.Title %></p>
+        <p>Genre: <%= movie.Genre %></p>
+        <p>Year: <%= movie.Year %></p>
+        <p>Director: <%= movie.Director %></p>
+        <p>Actors: <%= movie.Actors %></p>
+        <p>Synopsis: <%= movie.Plot %></p>
+        <p>Language: <%= movie.Language %></p>
+        <% if (movie.Ratings.length > 1) { %>
+            <p>Rotten Tomatoes: <%= movie.Ratings[1].Value %>, imdbRating: <%= movie.imdbRating %></p>
+        <% } %>
+        <div class="row justify-content-start">
+            <div class="col-2">
+                <form action="/users/watched" method ='POST'>
+                    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
+                    <button type="submit" class="btn btn-success">Watched</button>
+                </form>
+            </div>
+            <div class="col-2">
+                <form action="/users/watched/undo" method ='POST'>
+                    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
+                    <button type="submit" class="btn btn-danger">Not Watched</button>
+                </form>
+            </div>
+            <div class="col-3">
+                <form action="/users/watchlist" method ='POST'>
+                    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
+                    <button type="submit" class="btn btn-success">Add To Watchlist</button>
+                </form>
+            </div>
+            <div class="col-3">
+                <form action="/users/watchlist/undo" method ='POST'>
+                    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
+                    <button type="submit" class="btn btn-danger">Remove From Watchlist</button>
+                </form>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
 
-<p> <img src = <%= movie.Poster %> height="300"></p>
-<p>Genre: <%= movie.Genre %></p>
-<p>Year: <%= movie.Year %></p>
-<p>Year: <%= movie.Year %></p>
-<p>Director: <%= movie.Director %></p>
-<p>Actors: <%= movie.Actors %></p>
-<p>Synopsis: <%= movie.Plot %></p>
-<p>Language: <%= movie.Language %></p>
-<p>imdbRating: <%= movie.imdbRating %></p>
-<% if (movie.Ratings.length > 1) { %>
-    <p>Rotten Tomatoes: <%= movie.Ratings[1].Value %></p>
-<% } %>
-<form action="/users/watched" method ='POST'>
-    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
-    <button type="submit">Watched</button>
-</form>
-<form action="/users/watched/undo" method ='POST'>
-    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
-    <button type="submit">Not Watched</button>
-</form>
-<form action="/users/watchlist" method ='POST'>
-    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
-    <button type="submit">Add To Watchlist</button>
-</form>
-<form action="/users/watchlist/undo" method ='POST'>
-    <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
-    <button type="submit">Remove From Watchlist</button>
-</form>
 
