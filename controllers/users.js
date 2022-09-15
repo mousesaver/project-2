@@ -160,7 +160,19 @@ router.post('/watchlist', async (req, res) => {
         res.redirect(`/movies/${movie.imdbId}`)
     }
 })
-router.post('/watchlist/undo', (req, res) => {
-    res.send('Add to watchlist undo');
+router.post('/watchlist/undo', async (req, res) => {
+    if (!res.locals.user) {
+        res.redirect('/users/login?message=Please log in to proceed')
+    } else {
+        const movie = await db.watchlist.findOne({
+            where : {
+                imdbId : req.body.movieId
+            }
+        })
+        if (movie) {
+            res.locals.user.removeWatchlist(movie)
+        }
+        res.redirect(`/movies/${req.body.movieId}`)
+    }
 })
 module.exports = router;
