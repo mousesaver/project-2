@@ -1,4 +1,4 @@
-<h3>Popular Movies in 2022</h3>
+
 <!-- <% movies.forEach((movie) => { %>  
     <div>
       <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" >
@@ -6,62 +6,42 @@
     </div>
   <%}) %> -->
   <div class="container text-center">
+    <h3>Popular Movies in 2022</h3>
     <div class="row">
         <% movies.forEach((movie) => { %>  
       <div class="col-4">
-        <a href="/movies/<%= movie.imdbID %>"><p><%= movie.Title %><p></a>
-        <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="400" width="auto" ></a>
+        <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none"><p><%= movie.Title %><p></a>
+        <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="350" width="auto" ></a>
       </div>
         
       <%}) %>
     </div>
   </div>
-<!-- <% movies.forEach((movie) => { %>
-    <li>
-        <div>
-            <h3><a href="/movies/<%= movie.imdbID %>"><%= movie.Title %></a></h3>
-            <a href="/movies/<%= movie.imdbID %>"><img src='<%= movie.Poster %>' height='150'></a>
-        </div>
-    </li>
-<%}) %> -->
 
 <% if (user) { %>
-    <h3>    Watched Movies:</h3>
     <div class="container text-center">
+        <h3>Watched Movies:</h3>
     <div class="row">
         <% user.watchedmovies.forEach((movie) => { %>
       <div class="col-2">
         <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
-        <a href="/movies/<%= movie.imdbId %>"><p><%= movie.name %><p></a>
+        <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
       </div>
       <% }) %>
     </div>
     </div>
     <% } %>
-    <!-- <ul>
-        <% user.watchedmovies.forEach((movie) => { %>
-            <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
-                <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
-            </li>
-        <% }) %>
-    </ul> -->
+
     <% if (user) { %>
-        <h3>    <%= user.name %>'s Watchlists:</h3>
         <div class="container text-center">
+            <h3><%= user.name %>'s Watchlists:</h3>
         <div class="row">
             <% user.watchlists.forEach((movie) => { %>
           <div class="col-2">
             <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
-            <a href="/movies/<%= movie.imdbId %>"><p><%= movie.name %><p></a>
+            <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
           </div>
           <% }) %>
         </div>
         <% } %>
-    <!-- <p>Here are the movies on your watchlist:</p>
-    <ul>
-        <% user.watchlists.forEach((movie) => { %>
-            <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
-                <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
-            </li>
-        <% }) %>
-    </ul> -->
+
