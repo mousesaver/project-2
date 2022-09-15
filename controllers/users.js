@@ -137,6 +137,7 @@ router.post('/watched/undo', async (req, res) => {
         res.redirect(`/movies/${req.body.movieId}`)
     }
 })
+
 router.post('/watchlist', (req, res) => {
     res.send('Add to watchlist');
 })
