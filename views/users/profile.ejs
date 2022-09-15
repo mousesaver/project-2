@@ -1,1 +1,17 @@
-<h2>Welcome to your profile <%= user.name %>!  🐧</h2>
+<h2>Hello <%= user.name %>! </h2>
+<p>Here are the movies you have watched:</p>
+<ul>
+    <% user.watchedmovies.forEach((movie) => { %>
+        <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
+            <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
+        </li>
+    <% }) %>
+</ul>
+<p>Here are the movies on your watchlist:</p>
+<ul>
+    <% user.watchlists.forEach((movie) => { %>
+        <li><div><a href="/movies/<%= movie.imdbId %>"><img src='<%= movie.poster %>' height='150'></a></div>
+            <div><a href="/movies/<%= movie.imdbId %>"><%= movie.name %></a></div>
+        </li>
+    <% }) %>
+</ul>
