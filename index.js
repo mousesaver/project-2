@@ -17,6 +17,7 @@ app.set('view engine', 'ejs')
 app.use(ejsLayouts)
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
+app.use(express.static('public'))
 // Our customer auth middleware
 app.use(async (req, res, next) => {
     // res.locals.myData = 'hello, fellow route'
