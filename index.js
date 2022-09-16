@@ -34,7 +34,7 @@ app.use(async (req, res, next) => {
     next()
 })
 // Generate home page with 10 preselected movies from 2022
-const popularMovieId = ["tt1745960", "tt9419884", "tt8041270", "tt1877830", "tt5113044", "tt10648342", "tt12412888", "tt3704428", "tt1464335"]
+const popularMovieId = ["tt1745960", "tt13320622", "tt8041270", "tt1877830", "tt5113044", "tt10648342", "tt12412888", "tt3704428", "tt1464335"]
 async function extractMovie(arr,id) {
     try {
         const url = `http://www.omdbapi.com/?apikey=${myKey}&i=${id}`

@@ -101,11 +101,14 @@ router.get('/profile', async (req, res) => {
             },
             include: [db.watchedmovie, db.watchlist]
         })
-        const keyWord = user.watchedmovies[0].name.split(' ')[0]
-        const prediction = await extractMoviebyByTitle(keyWord)
+        let prediction = null;
+        if (user.watchedmovies.length !== 0) {
+            const keyWord = user.watchedmovies[0].name.split(' ')[0]
+            prediction = await extractMoviebyByTitle(keyWord)
+        }
         res.render('users/profile', {
             user: user,
-            prediction: prediction.Search
+            prediction: prediction !== null ? prediction.Search : null
         })
     }
 })
@@ -172,6 +175,7 @@ router.post('/watchlist', async (req, res) => {
                 director: specificMovie.Director
             }
         })
+        console.log(movie)
         if (created) {
             res.locals.user.addWatchlist(movie)
         }

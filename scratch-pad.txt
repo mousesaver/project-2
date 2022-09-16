@@ -3,3 +3,5 @@ sequelize model:create --name watchedmovie --attributes name:string,genre:string
 sequelize model:create --name users_watchedmovies --attributes userId:integer,watchedmovieId:integer
 sequelize model:create --name watchlist --attributes name:string,genre:string,poster:string,director:string,imdbId:string
 sequelize model:create --name users_watchlists --attributes userId:integer,watchlistId:integer
+sequelize model:create --name comment --attributes content:text,imdbId:string
+sequelize model:create --name users_comments --attributes userId:integer,commentId:integer
