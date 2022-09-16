@@ -90,29 +90,6 @@ async function extractMoviebyByTitle(name) {
         console.log(err)
     }
 }
-router.get('/profile', async (req, res) => {
-    // if the user is not logged ... we need to redirect to the login form
-    if (!res.locals.user) {
-        res.redirect('/users/login?message=You must authenticate before you are authorized to view this resource.')
-    } else {
-        const user = await db.user.findOne({
-            where: {
-                id : res.locals.user.id
-            },
-            include: [db.watchedmovie, db.watchlist]
-        })
-        let prediction = null;
-        if (user.watchedmovies.length !== 0) {
-            const keyWord = user.watchedmovies[0].name.split(' ')[0]
-            prediction = await extractMoviebyByTitle(keyWord)
-        }
-        
-        res.render('users/profile', {
-            user: user,
-            prediction: prediction !== null ? prediction.Search : null
-        })
-    }
-})
 async function extractMovie(id) {
     try {
         const url = `http://www.omdbapi.com/?apikey=${myKey}&i=${id}`
@@ -122,6 +99,36 @@ async function extractMovie(id) {
         console.log(err)
     }
 }
+router.get('/profile', async (req, res) => {
+    // if the user is not logged ... we need to redirect to the login form
+    if (!res.locals.user) {
+        res.redirect('/users/login?message=You must authenticate before you are authorized to view this resource.')
+    } else {
+        const user = await db.user.findOne({
+            where: {
+                id : res.locals.user.id
+            },
+            include: [db.watchedmovie, db.watchlist, db.comment]
+        })
+        let prediction = null;
+        if (user.watchedmovies.length !== 0) {
+            const keyWord = user.watchedmovies[0].name.split(' ')[0]
+            prediction = await extractMoviebyByTitle(keyWord)
+        }
+        let commentedMovies = [];
+        for (let i = 0; i < user.comments.length; i++) {
+            const movie = await extractMovie(user.comments[i].imdbId)
+            commentedMovies[i] = movie.Title
+        }
+        console.log(commentedMovies)
+        res.render('users/profile', {
+            user: user,
+            prediction: prediction !== null ? prediction.Search : null,
+            commentedMovies: commentedMovies
+        })
+    }
+})
+
 router.post('/watched', async (req, res) => {
     if (!res.locals.user) {
         res.redirect('/users/login?message=Please log in to proceed')

@@ -1,11 +1,16 @@
+<div class="container">
 <h2>Results for "<%= input %>"</h2>
-<ol>
-<% movies.forEach((movie) => { %>
-    <li>
-        <div class="col-2">
-            <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none"><p><%= movie.Title %> (<%= movie.Year %>)<p></a>
-            <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="200" width="auto" ></a>
-          </div>
-    </li>
-<%}) %>
-</ol>
+
+<div class="container text-center">
+    <div class="row">
+        <% movies.forEach((movie, i) => { %>  
+      <div class="col-3">
+        <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none"><p><%= i + 1 %>. <%= movie.Title %><p></a>
+        <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="200" width="auto" ></a>
+      </div>
+        
+      <%}) %>
+    </div>
+  </div>
+
+</div>

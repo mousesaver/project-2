@@ -1,6 +1,7 @@
-<h2>Hello <%= user.name %>! </h2>
+
 
     <div class="container text-center">
+      <h2>Hello <%= user.name %>! </h2>
         <h3>Watched Movies:</h3>
     <div class="row">
         <% user.watchedmovies.forEach((movie) => { %>
@@ -23,6 +24,7 @@
           </div>
           <% }) %>
         </div>
+      </div>
 
         <% if (prediction) { %>
         <div class="container text-center">
@@ -36,4 +38,16 @@
           <% }) %>
         </div>
         <% } %>
+        </div>
+
+        <div class="container text-left">
+        <h3>Your Movie Reviews :</h3>
+        
+        <% for (let i = 0; i < commentedMovies.length; i++) { %>
+          <a href="/movies/<%= user.comments[i].imdbId %>" style="text-decoration: none">
+          <p><%= commentedMovies[i] %> <%= user.comments[i].createdAt %> </p>
+          <p><%= user.comments[i].content %></p>
+          </a>
+        </div>
+   <% }%>
 
