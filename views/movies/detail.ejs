@@ -41,6 +41,19 @@
           </div>
     </div>
   </div>
+
+  <h3>Movie Review</h3>
+  <div class="mb-3">
+    <form action="/comments" method ='POST'>
+        <div class="mb-3">
+            <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
+            <input hidden id="user" type="text" name="user" value="<%= user %>">
+            <label for="comment" class="form-label">Please Share Your Thought</label>
+            <input type="text" class="form-control" id="comment"  name="comment" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 </div>
 
 
