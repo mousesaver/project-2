@@ -175,7 +175,6 @@ router.post('/watchlist', async (req, res) => {
                 director: specificMovie.Director
             }
         })
-        console.log(movie)
         if (created) {
             res.locals.user.addWatchlist(movie)
         }

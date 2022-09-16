@@ -80,6 +80,7 @@ app.get('/', async (req, res) =>{
 // controllers
 app.use('/users', require('./controllers/users'))
 app.use('/movies', require('./controllers/movies'))
+app.use('/comments', require('./controllers/comments'))
 
 // listen to a port
 app.listen(PORT, () => {
