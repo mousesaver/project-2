@@ -26,13 +26,14 @@ router.get('/:movie_id', async (req, res) => {
             imdbId : req.params.movie_id
         }
     })
-    console.log(comments[0].userId)
-    const users = [];
-    // if (comments)
-
+    let users = []
+    for (let i = 0; i < comments.length; i++) {
+        users[i] = await comments[i].getUser()
+    }
     res.render('movies/detail', {
             movie: movie.data,
-            comments: comments
+            comments: comments,
+            users: users
         })
   })
 

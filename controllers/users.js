@@ -106,6 +106,7 @@ router.get('/profile', async (req, res) => {
             const keyWord = user.watchedmovies[0].name.split(' ')[0]
             prediction = await extractMoviebyByTitle(keyWord)
         }
+        
         res.render('users/profile', {
             user: user,
             prediction: prediction !== null ? prediction.Search : null
@@ -137,9 +138,7 @@ router.post('/watched', async (req, res) => {
                 director: specificMovie.Director
             }
         })
-        if (created) {
-            res.locals.user.addWatchedmovie(movie)
-        }
+        res.locals.user.addWatchedmovie(movie)
         res.redirect(`/movies/${movie.imdbId}`)
     }
 })
@@ -175,9 +174,9 @@ router.post('/watchlist', async (req, res) => {
                 director: specificMovie.Director
             }
         })
-        if (created) {
-            res.locals.user.addWatchlist(movie)
-        }
+   
+        res.locals.user.addWatchlist(movie)
+        
         res.redirect(`/movies/${movie.imdbId}`)
     }
 })
