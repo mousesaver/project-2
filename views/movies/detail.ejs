@@ -43,14 +43,14 @@
   </div>
 
   <h3>Movie Review</h3>
-  <% if (comments) { %>
+  <!-- <% if (comments) { %>
     <% comments.forEach((comment) => { %>
         <p><%= comment.users.name %> <%= comment.createdAt %> </p>
         <div>
             <%= comment.content %>
         </div>
         <% })%>
- <% }%>
+ <% }%> -->
 
   <div class="mb-3">
     <form action="/comments" method ='POST'>

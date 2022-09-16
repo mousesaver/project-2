@@ -21,16 +21,18 @@ router.get('/', (req, res) => {
 router.get('/:movie_id', async (req, res) => {
     const url = `http://www.omdbapi.com/?apikey=${myKey}&i=${req.params.movie_id}`
     const movie = await axios.get(url)
-    const comment = await db.comment.findAll({
+    const comments = await db.comment.findAll({
         where: {
             imdbId : req.params.movie_id
-        },
-        include: [db.user]
+        }
     })
-    console.log(comment.user)
+    console.log(comments[0].userId)
+    const users = [];
+    // if (comments)
+
     res.render('movies/detail', {
             movie: movie.data,
-            comments: comment
+            comments: comments
         })
   })
 
