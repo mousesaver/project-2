@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.user.belongsToMany(models.watchedmovie, {through : "users_watchedmovies"})
       models.user.belongsToMany(models.watchlist, {through : "users_watchlists"})
+      models.user.belongsToMany(models.comment, {through : "users_comments"})
     }
   }
   user.init({
