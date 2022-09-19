@@ -42,12 +42,13 @@
 
         <div class="container text-left">
         <h3>Your Movie Reviews :</h3>
-        
+        </div>
         <% for (let i = 0; i < commentedMovies.length; i++) { %>
+          <div class="container text-left">
           <a href="/movies/<%= user.comments[i].imdbId %>" style="text-decoration: none">
-          <p><%= commentedMovies[i] %> <%= user.comments[i].createdAt %> </p>
+          <div><%= commentedMovies[i] %> <%= user.comments[i].createdAt %> </div>
           <p><%= user.comments[i].content %></p>
           </a>
-        </div>
+          </div>
    <% }%>
 

@@ -47,7 +47,7 @@
     <% if (user.id == users[i].id) { %>
         <div class="row justify-content-start">
             <div class="col-8">
-                <p>You <%= comments[i].createdAt %></p>
+                <div><strong>You </strong> <small><%= comments[i].createdAt %></small></div>
             </div>
             <div class="col-1">
                 <form action="/comments/edit/<%= comments[i].imdbId %>" method ='get'>
@@ -63,11 +63,9 @@
             </div>
         </div>
         <%  } else { %> 
-            <p><%= users[i].name %> <%= comments[i].createdAt %> </p>
+            <div><strong><%= users[i].name %> </strong> <small><%= comments[i].createdAt %> </small></div>
         <% } %> 
-        <div>
-            <%= comments[i].content %>
-        </div>
+            <p><%= comments[i].content %></p>
  <% }%>
 
   <div class="mb-3">
