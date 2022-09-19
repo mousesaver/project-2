@@ -5,7 +5,7 @@
     <div class="row">
         <% movies.forEach((movie, i) => { %>  
       <div class="col-3">
-        <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none" style="color:black"><p><%= i + 1 %>. <%= movie.Title %><p></a>
+        <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none" style="color:red"><p><%= i + 1 %>. <%= movie.Title %><p></a>
         <a href="/movies/<%= movie.imdbID %>" style="color:black"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="200" width="auto" ></a>
       </div>
         
