@@ -44,7 +44,27 @@
 
   <h3>Movie Review</h3>
   <% for (let i = 0; i < comments.length; i++) { %>
-        <p><%= users[i].name %> <%= comments[i].createdAt %> </p>
+    <% if (user.id == users[i].id) { %>
+        <div class="row justify-content-start">
+            <div class="col-8">
+                <p>You <%= comments[i].createdAt %></p>
+            </div>
+            <div class="col-1">
+                <form action="/comments/edit/<%= comments[i].imdbId %>" method ='get'>
+                    <input hidden id="comment" type="text" name="commentId" value="<%= comments[i].id %>">
+                    <button type="submit" class="btn btn-light btn-sm">Edit</button>
+                </form>
+             </div>
+             <div class="col-1">
+                <form action="/comments/<%= comments[i].imdbId %>/?_method=DELETE" method ='POST'>
+                    <input hidden id="commentId" type="text" name="commentId" value="<%=comments[i].id %>">
+                    <button type="submit" class="btn btn-light btn-sm">Delete</button>
+                </form>
+            </div>
+        </div>
+        <%  } else { %> 
+            <p><%= users[i].name %> <%= comments[i].createdAt %> </p>
+        <% } %> 
         <div>
             <%= comments[i].content %>
         </div>

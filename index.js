@@ -7,6 +7,7 @@ const db = require('./models')
 const crypto = require('crypto-js')
 const axios = require('axios')
 const myKey = process.env.API_KEY;
+const methodOverride = require('method-override');
 
 
 // config express app/middlewares
@@ -18,6 +19,7 @@ app.use(ejsLayouts)
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(express.static('public'))
+app.use(methodOverride('_method'));
 // Our customer auth middleware
 app.use(async (req, res, next) => {
     // res.locals.myData = 'hello, fellow route'
