@@ -1,9 +1,9 @@
 <div class="container">
-<h2>Results for "<%= input %>"</h2>
+  <h2>Results for "<%= input %>"</h2>
 
-<div class="container text-center">
+  <div class="container text-center">
   <% if (!movies) { %>
-    <h4>Sorry, no movies have been found</h4>
+    <h4>Sorry, no movies have been found.</h4>
   <% } else { %>
     <div class="row">
       <% movies.forEach((movie, i) => { %>  
@@ -11,11 +11,8 @@
       <% movie.Poster = movie.Poster !== "N/A" ? movie.Poster : "https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg" %>
       <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none;color:black"><p><%= i + 1 %>. <%= movie.Title %><p></a>
       <a href="/movies/<%= movie.imdbID %>" style="color:black"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="200" width="auto" ></a>
-    </div>
-      
+    </div>    
     <%}) %>
   </div>
-<%} %>
-  
-
+  <%} %>
 </div>

@@ -1,8 +1,8 @@
 
 <div class="container">
-<% if (message) { %>
+  <% if (message) { %>
     <p> <%= message %></p>
-<% } %>
+  <% } %>
 <!-- 
 <form action="/users/login" method ='POST'>
     <label for="email">Email</label>
@@ -14,7 +14,7 @@
 </form>
 <p>If you don't have an account, click <a href="/users/new">here</a> to sign up</p> -->
 
-<form action="/users/login" method ='POST'>
+  <form action="/users/login" method ='POST'>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>

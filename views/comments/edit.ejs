@@ -2,11 +2,11 @@
 <div class="container">
     <div class="row justify-content-start">
         <div class="col-4">
+            <% movie.Poster = movie.Poster !== "N/A" ? movie.Poster : "https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg" %>
             <img src = <%= movie.Poster %> height="400">
         </div>
         <div class="col-8">
-
-            <p><%= movie.Title %> (<%= movie.Year %>)</p>
+            <p><strong><%= movie.Title %> (<%= movie.Year %>)</strong></p>
             <p>Genre: <%= movie.Genre %></p>
             <p>Director: <%= movie.Director %></p>
             <p>Actors: <%= movie.Actors %></p>
@@ -15,12 +15,12 @@
             <% if (movie.Ratings.length > 1) { %>
                 <p>Rotten Tomatoes: <%= movie.Ratings[1].Value %>, imdbRating: <%= movie.imdbRating %></p>
             <% } %>
-    </div>
+        </div>
 
     <div class="mb-3">
         <form action="/comments/?_method=PUT" method ='POST'>
             <div class="mb-3">
-                <label for="comment" class="form-label">Please Edit Your Movie Review</label>
+                <label for="comment" class="form-label"><strong>Please Edit Your Movie Review</strong></label>
                 <input type="text" class="form-control" id="comment"  name="comment" value="<%= comment.content %>" required>
                 <input hidden type="text" class="form-control" id="comment"  name="commentimdbId" value="<%= comment.imdbId %>" required>
                 <input hidden type="text" class="form-control" id="comment"  name="commentId" value="<%= comment.id %>" required>

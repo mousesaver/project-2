@@ -1,14 +1,14 @@
 
 
-    <div class="container text-center">
-      <div class="row justify-content-end">
-      <div class="col-2">
+<div class="container text-center">
+  <div class="row justify-content-end">
+    <div class="col-2">
         <form action="/users/profile/edit" method ='GET'>
             <input hidden id="user" type="text" name="userId">
             <button type="submit" class="btn btn-secondary btn-sm">Edit Your Profile</button>
         </form>
-     </div>
-     <div class="col-2">
+    </div>
+    <div class="col-2">
         <form action="/users/profile/?_method=DELETE" method ='POST'>
             <input hidden id="userId" type="text" name="userId">
             <button type="submit" class="btn btn-danger btn-sm">Delete Your Profile</button>
@@ -20,31 +20,28 @@
     <div class="row">
         <% user.watchedmovies.forEach((movie) => { %>
       <div class="col-2">
+        <% movie.poster = movie.poster !== "N/A" ? movie.poster : "https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg" %>
         <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
         <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none; color:black"><p><%= movie.name %><p></a>
       </div>
       <% }) %>
     </div>
+
+  <h3><%= user.name %>'s Watchlists</h3>
+    <div class="row">
+      <% user.watchlists.forEach((movie) => { %>
+        <div class="col-2">
+          <% movie.poster = movie.poster !== "N/A" ? movie.poster : "https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg" %>
+          <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
+          <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none; color:black"><p><%= movie.name %><p></a>
+        </div>
+      <% }) %>
     </div>
 
-
-        <div class="container text-center">
-            <h3><%= user.name %>'s Watchlists</h3>
+  <% if (prediction) { %>
+      <h3>Movies You May Like</h3>
         <div class="row">
-            <% user.watchlists.forEach((movie) => { %>
-          <div class="col-2">
-            <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
-            <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none; color:black"><p><%= movie.name %><p></a>
-          </div>
-          <% }) %>
-        </div>
-      </div>
-
-        <% if (prediction) { %>
-        <div class="container text-center">
-            <h3>Movies You May Like</h3>
-        <div class="row">
-            <% prediction.forEach((movie) => { %>
+          <% prediction.forEach((movie) => { %>
             <%  if (movie.Poster == "N/A") { %>
               <%     %>
             <%  } else { %>
@@ -53,16 +50,13 @@
                   <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none; color:black"><p><%= movie.Title %><p></a>
                 </div>
             <%  } %>
-          
           <% }) %>
         </div>
         <% } %>
-        </div>
 
-        <div class="container text-center">
-        <h3>Your Movie Reviews</h3>
-        </div>
-        <% for (let i = 0; i < commentedMovies.length; i++) { %>
+  <h3>Your Movie Reviews</h3>
+</div>
+      <% for (let i = 0; i < commentedMovies.length; i++) { %>
           <div class="container text-left">
           <a href="/movies/<%= user.comments[i].imdbId %>" style="text-decoration: none; color:black">
           <div><strong><%= commentedMovies[i] %></strong> <small><%= user.comments[i].createdAt %> </small></div>
