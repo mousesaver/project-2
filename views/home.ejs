@@ -10,7 +10,7 @@
     <div class="row">
         <% movies.forEach((movie) => { %>  
       <div class="col-4">
-        <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none"><p><%= movie.Title %><p></a>
+        <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none; color:black"><p><%= movie.Title %><p></a>
         <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="350" width="auto" ></a>
       </div>
         
@@ -25,7 +25,7 @@
         <% user.watchedmovies.forEach((movie) => { %>
       <div class="col-2">
         <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
-        <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
+        <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none; color:black"><p><%= movie.name %><p></a>
       </div>
       <% }) %>
     </div>
@@ -39,7 +39,7 @@
             <% user.watchlists.forEach((movie) => { %>
           <div class="col-2">
             <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
-            <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
+            <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none; color:black"><p><%= movie.name %><p></a>
           </div>
           <% }) %>
         </div>

@@ -43,36 +43,39 @@
   </div>
 
   <h3>Movie Review</h3>
-  <% for (let i = 0; i < comments.length; i++) { %>
-    <% if (user.id == users[i].id) { %>
-        <div class="row justify-content-start">
-            <div class="col-8">
-                <div><strong>You </strong> <small><%= comments[i].createdAt %></small></div>
+  <% comments.forEach((comment, i) => { %>
+    <% if (user) { %>
+        <% if (user.id == users[i].id) { %>
+            <div class="row justify-content-start">
+                <div class="col-8">
+                    <div><strong>You </strong> <small><%= comments[i].createdAt %></small></div>
+                </div>
+                <div class="col-1">
+                    <form action="/comments/edit/<%= comments[i].imdbId %>" method ='GET'>
+                        <input hidden id="comment" type="text" name="commentId" value="<%= comments[i].id %>">
+                        <button type="submit" class="btn btn-light btn-sm">Edit</button>
+                    </form>
+                 </div>
+                 <div class="col-1">
+                    <form action="/comments/<%= comments[i].imdbId %>/?_method=DELETE" method ='POST'>
+                        <input hidden id="commentId" type="text" name="commentId" value="<%=comments[i].id %>">
+                        <button type="submit" class="btn btn-light btn-sm">Delete</button>
+                    </form>
+                </div>
             </div>
-            <div class="col-1">
-                <form action="/comments/edit/<%= comments[i].imdbId %>" method ='get'>
-                    <input hidden id="comment" type="text" name="commentId" value="<%= comments[i].id %>">
-                    <button type="submit" class="btn btn-light btn-sm">Edit</button>
-                </form>
-             </div>
-             <div class="col-1">
-                <form action="/comments/<%= comments[i].imdbId %>/?_method=DELETE" method ='POST'>
-                    <input hidden id="commentId" type="text" name="commentId" value="<%=comments[i].id %>">
-                    <button type="submit" class="btn btn-light btn-sm">Delete</button>
-                </form>
-            </div>
-        </div>
+            <% } %>
+    
         <%  } else { %> 
             <div><strong><%= users[i].name %> </strong> <small><%= comments[i].createdAt %> </small></div>
         <% } %> 
             <p><%= comments[i].content %></p>
- <% }%>
+ <% })%>
 
   <div class="mb-3">
     <form action="/comments" method ='POST'>
         <div class="mb-3">
             <input hidden id="movieId" type="text" name="movieId" value="<%= movie.imdbID %>">
-            <label for="comment" class="form-label">Please Share Your Thought</label>
+            <label for="comment" class="form-label">Please Share Your Thoughts</label>
             <input type="text" class="form-control" id="comment"  name="comment" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

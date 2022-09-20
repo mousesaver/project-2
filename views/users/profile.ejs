@@ -1,13 +1,27 @@
 
 
     <div class="container text-center">
-      <h2>Hello <%= user.name %>! </h2>
-        <h3>Watched Movies:</h3>
+      <div class="row justify-content-end">
+      <div class="col-2">
+        <form action="/users/profile/edit" method ='GET'>
+            <input hidden id="user" type="text" name="userId">
+            <button type="submit" class="btn btn-secondary btn-sm">Edit Your Profile</button>
+        </form>
+     </div>
+     <div class="col-2">
+        <form action="/users/profile/?_method=DELETE" method ='POST'>
+            <input hidden id="userId" type="text" name="userId">
+            <button type="submit" class="btn btn-danger btn-sm">Delete Your Profile</button>
+        </form>
+    </div>
+  </div>
+  <h2>Hello <%= user.name %>! </h2>
+        <h3>Watched Movies</h3>
     <div class="row">
         <% user.watchedmovies.forEach((movie) => { %>
       <div class="col-2">
         <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
-        <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
+        <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none; color:black"><p><%= movie.name %><p></a>
       </div>
       <% }) %>
     </div>
@@ -15,12 +29,12 @@
 
 
         <div class="container text-center">
-            <h3><%= user.name %>'s Watchlists:</h3>
+            <h3><%= user.name %>'s Watchlists</h3>
         <div class="row">
             <% user.watchlists.forEach((movie) => { %>
           <div class="col-2">
             <a href="/movies/<%= movie.imdbId %>"><img src="<%= movie.poster %>" alt="<%= movie.name %>" height="200" width="auto" ></a>
-            <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none"><p><%= movie.name %><p></a>
+            <a href="/movies/<%= movie.imdbId %>" style="text-decoration: none; color:black"><p><%= movie.name %><p></a>
           </div>
           <% }) %>
         </div>
@@ -28,25 +42,25 @@
 
         <% if (prediction) { %>
         <div class="container text-center">
-            <h3>Movies You May Like :</h3>
+            <h3>Movies You May Like</h3>
         <div class="row">
             <% prediction.forEach((movie) => { %>
           <div class="col-2">
             <a href="/movies/<%= movie.imdbID %>"><img src="<%= movie.Poster %>" alt="<%= movie.Title %>" height="200" width="auto" ></a>
-            <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none"><p><%= movie.Title %><p></a>
+            <a href="/movies/<%= movie.imdbID %>" style="text-decoration: none; color:black"><p><%= movie.Title %><p></a>
           </div>
           <% }) %>
         </div>
         <% } %>
         </div>
 
-        <div class="container text-left">
-        <h3>Your Movie Reviews :</h3>
+        <div class="container text-center">
+        <h3>Your Movie Reviews</h3>
         </div>
         <% for (let i = 0; i < commentedMovies.length; i++) { %>
           <div class="container text-left">
-          <a href="/movies/<%= user.comments[i].imdbId %>" style="text-decoration: none">
-          <div><%= commentedMovies[i] %> <%= user.comments[i].createdAt %> </div>
+          <a href="/movies/<%= user.comments[i].imdbId %>" style="text-decoration: none; color:black">
+          <div><strong><%= commentedMovies[i] %></strong> <small><%= user.comments[i].createdAt %> </small></div>
           <p><%= user.comments[i].content %></p>
           </a>
           </div>

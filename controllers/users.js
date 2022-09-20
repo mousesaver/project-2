@@ -202,4 +202,41 @@ router.post('/watchlist/undo', async (req, res) => {
         res.redirect(`/movies/${req.body.movieId}`)
     }
 })
+router.get('/profile/edit', (req, res) => {
+    if (!res.locals.user) {
+        res.redirect('/users/login?message=Please log in to proceed')
+    } else {
+        res.render('users/edit', {
+            user: res.locals.user
+        })
+    }
+})
+router.put('/', async (req, res) => {
+    const hashedPassword = bcrypt.hashSync(req.body.password, 12)
+    await db.user.update({
+        name: req.body.name,
+        country: req.body.country,
+        email: req.body.email,
+        password: hashedPassword
+    }, {
+        where: {
+            id: res.locals.user.id
+        }
+    })
+    res.redirect('/users/profile')
+})
+
+router.delete('/profile', async (req, res) => {
+    await db.user.destroy({
+        where : {
+        id : res.locals.user.id
+        }
+    })
+    await db.comment.destroy({
+        where : {
+        userId : res.locals.user.id
+        }
+    })
+    res.redirect('/')
+})
 module.exports = router;
