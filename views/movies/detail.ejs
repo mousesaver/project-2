@@ -63,11 +63,12 @@
                     </form>
                 </div>
             </div>
-            <% } %>
-    
         <%  } else { %> 
             <div><strong><%= users[i].name %> </strong> <small><%= comments[i].createdAt %> </small></div>
         <% } %> 
+    <% }  else { %> 
+        <div><strong><%= users[i].name %> </strong> <small><%= comments[i].createdAt %> </small></div>
+    <% } %> 
             <p><%= comments[i].content %></p>
  <% })%>
 

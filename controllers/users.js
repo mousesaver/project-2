@@ -112,15 +112,16 @@ router.get('/profile', async (req, res) => {
         })
         let prediction = null;
         if (user.watchedmovies.length !== 0) {
-            const keyWord = user.watchedmovies[0].name.split(' ')[0]
+            let i = Math.floor(Math.random() * user.watchedmovies.length)
+            const keyWord = user.watchedmovies[i].name.split(' ')[0]
             prediction = await extractMoviebyByTitle(keyWord)
+  
         }
         let commentedMovies = [];
         for (let i = 0; i < user.comments.length; i++) {
             const movie = await extractMovie(user.comments[i].imdbId)
             commentedMovies[i] = movie.Title
         }
-        console.log(commentedMovies)
         res.render('users/profile', {
             user: user,
             prediction: prediction !== null ? prediction.Search : null,
