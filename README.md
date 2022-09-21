@@ -21,17 +21,17 @@ OMDb API (https://www.omdbapi.com/)
 - Sequalize
 
 ## ERDs
-![plot](Project2-ERD updated.png)
+![plot](Project2-ERD-updated.png)
 
 ## Restful Routing Chart
-![plot](Project2-routes updated.png)
+![plot](Project2-routes-updated.png)
 
 ## Wireframe
-![plot](move home page.png)
-![plot](move detail page.png)
-![plot](move sign up page.png)
-![plot](move login page.png)
-![plot](move user profile page.png)
+![plot](movie-homepage.png)
+![plot](movie-detail-page.png)
+![plot](movie-signup-page.png)
+![plot](movie-login-page.png)
+![plot](movie-user-profile-page.png)
 
 ## User Stories
 - Sign up for an personal account to track their movies and comments
