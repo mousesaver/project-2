@@ -11,14 +11,19 @@ https://movie-tracker-mousesaver.koyeb.app/
 
 OMDb API (https://www.omdbapi.com/)
 
-## Tech Being Used
+## Tech Used
 - HTML
 - CSS/Bootstrap
 - JavaScript
 - Node
 - Express
+- Axios
+- EJS
 - API
 - Sequalize
+- bcrypto
+- crypto-js
+
 
 ## Installation Instruction
 * Fork and clone this repository to your local directory
