@@ -48,7 +48,6 @@ router.put('/', async (req, res) => {
             id: req.body.commentId
         }
     })
-    console.log(comment)
     res.redirect(`/movies/${req.body.commentimdbId}`)
 })
 
